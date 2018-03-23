@@ -1,0 +1,10 @@
+{
+  "test": {
+    "username": "root",
+    "password": "13123974",
+    "database": "nodejs",
+    "host": "localhost",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  }
+}
