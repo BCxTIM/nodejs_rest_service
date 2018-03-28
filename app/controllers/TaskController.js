@@ -4,7 +4,7 @@ const TaskDao = require("../dao/TaskDao");
 
 exports.getAllTasks = function (req, res) {
     TaskDao.getAllTasks().then(function (tasks) {
-        return res.send({error: false, data: tasks});
+        return res.status(200).send({error: false, data: tasks});
     });
 };
 
@@ -13,7 +13,7 @@ exports.getTaskById = function (req, res) {
     var task_id = req.params.id;
     TaskDao.getTaskById(task_id).then(function (task) {
         if (!(task instanceof Object)) {
-            return res.status(404).send({error: true, data: task});
+            return res.status(400).send({error: true, data: task});
         }
         return res.send({error: false, data: task});
     })
@@ -34,9 +34,14 @@ exports.getTaskByKeyword = function (req, res) {
 
 exports.createTask = function (req, res) {
     var data = req.body;
-    TaskDao.createTask(data).then(function (task) {
-        return res.send({error: false, data: task, message: 'Task was created'});
-    })
+    if(isEmpty(data.task)) {
+        return res.status(400).send({error: true, data: "Task could not be empty"});
+    } else {
+        TaskDao.createTask(data).then(function (task) {
+            return res.send({error: false, data: task, message: 'Task was created'});
+        })
+    }
+
 };
 
 exports.updateTask = function (req, res) {
@@ -68,4 +73,7 @@ exports.deleteTask = function (req, res) {
     })
 };
 
+function isEmpty(value) {
+    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+}
 
