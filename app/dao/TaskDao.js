@@ -39,13 +39,14 @@ exports.getTaskByKeyword = function (keyword) {
 
 exports.createTask = function (data) {
     return Tasks.create({
-        task: data.task
+        task: data.task,
+        status: data.status
     });
 };
 
 exports.updateTask = function (data) {
     return Tasks.update({
-        task: data.task
+        task: data.task,
     }, {
         where: {
             id: data.id
