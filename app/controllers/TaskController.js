@@ -68,10 +68,10 @@ exports.deleteTask = function (req, res) {
 
     TaskDao.getTaskById(id).then(function (task) {
         if (!(task instanceof Object)) {
-            return res.send({error: true, data: 'not find task with id ' + id});
+            return res.status(404).send({error: true, data: 'not found task with id ' + id});
         } else {
             TaskDao.deleteTask(id).then(function () {
-                return res.send({error: false, message: 'Task with id ' + id + ' was deleted successfully'});
+                return res.send({error: false, data: 'Task with id ' + id + ' was deleted successfully'});
             })
         }
     })
