@@ -28,13 +28,8 @@ exports.getTaskByKeyword = function (keyword) {
             }
         }
     }).then(function (tasks) {
-        if (tasks.length < 1) {
-            return 'Task with keyword ' + keyword + ' not found';
-        } else {
             return tasks;
-        }
-
-    })
+    });
 };
 
 exports.createTask = function (data) {
