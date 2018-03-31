@@ -42,6 +42,7 @@ exports.createTask = function (data) {
 exports.updateTask = function (data) {
     return Tasks.update({
         task: data.task,
+        status: data.status
     }, {
         where: {
             id: data.id

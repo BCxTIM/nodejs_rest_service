@@ -47,17 +47,20 @@ exports.createTask = function (req, res) {
 
 exports.updateTask = function (req, res) {
     var data = req.body;
-
-    TaskDao.getTaskById(data.id).then(function (task) {
-        if (!(task instanceof Object)) {
-            return res.send({error: true, data: 'not find task with id ' + data.id});
-        }
-        else {
-            TaskDao.updateTask(data).then(function () {
-                return res.send({error: false, data: data, message: 'Task with id ' + data.id + ' was updated'});
-            })
-        }
-    })
+    if(isEmpty(data.task)) {
+        res.status(400).send({error: true, data: "Task can not be empty"});
+    } else {
+        TaskDao.getTaskById(data.id).then(function (task) {
+            if (!(task instanceof Object)) {
+                return res.status(404).send({error: true, data: 'not found task with id ' + data.id});
+            }
+            else {
+                TaskDao.updateTask(data).then(function () {
+                    return res.send({error: false, data: data, message: 'Task with id ' + data.id + ' was updated'});
+                })
+            }
+        })
+    }
 };
 
 exports.deleteTask = function (req, res) {
