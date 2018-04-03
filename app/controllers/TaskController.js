@@ -23,7 +23,6 @@ exports.getTaskById = function (req, res) {
 exports.getTaskByKeyword = function (req, res) {
     var keyword = req.params.keyword;
     TaskDao.getTaskByKeyword(keyword).then(function (tasks) {
-        console.log(tasks);
         if (tasks.length > 0) {
             return res.send({error: false, data: tasks});
         } else {
