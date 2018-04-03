@@ -39,7 +39,7 @@ exports.createTask = function (req, res) {
         return res.status(400).send({error: true, data: "Task could not be empty"});
     } else {
         TaskDao.createTask(data).then(function (task) {
-            return res.send({error: false, data: task, message: 'Task was created'});
+            return res.status(201).send({error: false, data: task, message: 'Task was created'});
         })
     }
 
@@ -56,7 +56,7 @@ exports.updateTask = function (req, res) {
             }
             else {
                 TaskDao.updateTask(data).then(function () {
-                    return res.send({error: false, data: data, message: 'Task with id ' + data.id + ' was updated'});
+                    return res.status(201).send({error: false, data: data, message: 'Task with id ' + data.id + ' was updated'});
                 })
             }
         })
